@@ -16,27 +16,27 @@ class WOPIController extends Controller
 
     function checkFileInfo($fileId)
     {
-        $filePath = public_path('test.doc');
+        $filePath = public_path('sample.docx');
 
         $handle = fopen($filePath, "r");
         $size = filesize($filePath);
         $contents = fread($handle, $size);
 
         return [
-            "BaseFileName" => "test.doc",
+            "BaseFileName" => "sample.docx",
             "Size" => $size,
             "OwnerId" => 1,
             "UserId" => 1,
             "Version" => rand(),
-            "FileUrl" => url("test.doc")
+            "FileUrl" => url("sample.docx")
         ];
     }
 
     function getFile($fileId)
     {
-        $filePath = public_path('test.doc');
+        $filePath = public_path('sample.docx');
 
-        $file = public_path('test.doc');
+        $file = public_path('sample.docx');
 
         if (file_exists($file)) {
             header('Content-Description: File Transfer');
