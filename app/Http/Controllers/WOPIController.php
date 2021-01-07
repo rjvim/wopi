@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Storage;
 
 class WOPIController extends Controller
 {
+    function lock($fileId)
+    {
+        return [
+            "status" => "ok"
+        ];
+    }
+
     function checkFileInfo($fileId)
     {
         $filePath = public_path('sample.docx');
@@ -21,7 +28,7 @@ class WOPIController extends Controller
             "OwnerId" => 1,
             "UserId" => 1,
             "Version" => rand(),
-            "FileUrl" => url("sample.docx")
+            // "FileUrl" => url("sample.docx")
         ];
     }
 

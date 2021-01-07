@@ -122,3 +122,7 @@ Looks like we hardcode pretty much everything, except BaseFileName and Size
 GetFile (https://wopi.readthedocs.io/projects/wopirest/en/latest/files/GetFile.html#getfile)
 
 -   `GET /wopi/files/(file_id)/contents`
+
+docker run -it --rm tylerbutler/wopi-validator -- -w https://test-wopi.laworldservices.com/wopi/files/123 -t abcdabcdabcd -l 0 -s
+
+docker run -it --rm tylerbutler/wopi-validator -- -w http://wopi.test/wopi/files/123 -t abcdabcdabcd -l 0 -s
