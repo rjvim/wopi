@@ -41,7 +41,7 @@ class WOPIController extends Controller
         $handle = fopen($filePath, "rb");
         $contents = fread($handle, filesize($filePath));
 
-        // echo $contents;
-        return $contents;
+        echo $contents;
+        // return $contents;
     }
 }
