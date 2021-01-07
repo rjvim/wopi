@@ -9,7 +9,7 @@ class WOPIController extends Controller
 {
     function checkFileInfo($fileId)
     {
-        $filePath = storage_path('app/public/test.doc');
+        $filePath = public_path('test.doc');
 
         $handle = fopen($filePath, "r");
         $size = filesize($filePath);
@@ -27,7 +27,7 @@ class WOPIController extends Controller
 
     function getFile($fileId)
     {
-        $filePath = storage_path('app/public/test.doc');
+        $filePath = public_path('test.doc');
 
         $handle = fopen($filePath, "r");
         $contents = fread($handle, filesize($filePath));
