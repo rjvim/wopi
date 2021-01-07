@@ -1,62 +1,124 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Background
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is aimed towards https://wopi.readthedocs.io/ (Office for web)
 
-## About Laravel
+As a beginner, WOPI implementation for Microsoft Office for web can seem daunting and clueless. It can sound very difficult as the starting point is not clear.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Let's understand few concepts:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. The idea is to view/edit your files using Office, like a Word document.
+2. So, you host your file whereever you want, like S3 but for editing purpose we use Office. Seems like a great option.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Open a page to edit your document
 
-## Learning Laravel
+If you want your user to edit a word doc from your application, an obivous thing would be you want to open a page with that document for viewing or editing. WOPI refers to this as "Host Page" - https://wopi.readthedocs.io/en/latest/hostpage.html
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Host page is something we make! And we will provide place in that page so that Office can load necessary UI/Functionalities for Editing that document. Seems Fair! And for this Office expects a webpage with an iframe. And that iframe id should be "office_frame", again, a fair expectation.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+But how would Office even know that you open a page and you are expecting Office to load its functionality in your page. Simple, you make a simple form and "Submit it".
 
-## Laravel Sponsors
+If you ever, made a form, you need an "action" attribute. What should be the value of that action attribute. Aha! Now we are getting into the crux, that's what discovery url is for!
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+You can find these at: https://wopi.readthedocs.io/en/latest/build_test_ship/environments.html
 
-### Premium Partners
+At time of writing this, test url is: https://ffc-onenote.officeapps.live.com/hosting/discovery
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+Here you will find some XML (Might seem, what the hell!), but please stay on course.
 
-## Contributing
+You can observe the first level of `<app name="Excel"`,`<app name="Word"` etc.,
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+As we want to view a word doc to being with, let's go into `<app name="Word"` Let's say we want to view a word document with extension `.doc`
 
-## Code of Conduct
+So, if we can try to guess something:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+<action name="view" ext="doc" default="true" urlsrc="https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?<ui=UI_LLCC&><rs=DC_LLCC&><dchat=DISABLE_CHAT&><hid=HOST_SESSION_ID&><sc=SESSION_CONTEXT&><wopisrc=WOPI_SOURCE&><showpagestats=PERFSTATS&><IsLicensedUser=BUSINESS_USER&><actnavid=ACTIVITY_NAVIGATION_ID&>"/>
+```
 
-## Security Vulnerabilities
+The following line should give your some idea - action is "view" and ext is doc, Aha, something relevant.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Let's park this here for now, atleast we know the above xml has something to do with us viewing a word doc! Ok, what next?
 
-## License
+Let's put together a host page, let's take from: https://github.com/Microsoft/Office-Online-Test-Tools-and-Documentation/blob/master/samples/SampleHostPage.html, which we changed and put in `resources/views/host.blade.php` with Laravel blade variables.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Off the bat, if you focus on discovery xml once more, u will find an attribute `favIconUrl` and our host page also has `$favIconUrl`, Atleast we know where this value is going to come from. And don't worry too much, at this point, all we need to figure out first is what would be value of `$officeActionUrl`
+
+### officeActionUrl
+
+From above XML, let's take urlsrc and wonder about it for a minute:
+
+`https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?<ui=UI_LLCC&><rs=DC_LLCC&><dchat=DISABLE_CHAT&><hid=HOST_SESSION_ID&><sc=SESSION_CONTEXT&><wopisrc=WOPI_SOURCE&><showpagestats=PERFSTATS&><IsLicensedUser=BUSINESS_USER&><actnavid=ACTIVITY_NAVIGATION_ID&>`
+
+Few things which are distracting as hell are:
+
+-   UI_LLCC
+-   DC_LLCC
+-   DISABLE_CHAT
+-   HOST_SESSION_ID
+-   SESSION_CONTEXT
+-   WOPI_SOURCE
+-   PERFSTATS
+-   BUSINESS_USER
+-   ACTIVITY_NAVIGATION_ID
+
+Let's patiently get some idea about these, and the relevant documentation for this is: https://wopi.readthedocs.io/en/latest/discovery.html?#action-urls
+
+An importance sentence: "A WOPI host must transform the URIs" - So we need to transform this urlsrc and supply it as action url!
+
+Ok, and this "the host must parse and replace Placeholder values with appropriate values or discard them completely." -> Ok, getting some idea.
+
+Now this "When the URL is opened, the action will be invoked against the file indicated by the WOPISrc."
+
+Ok, so some unknown complexity, WOPISrc is the one to which we have to tell which file to process/open and whatever!
+
+Let's go back to above values again, so the documentation for it here:
+
+https://wopi.readthedocs.io/en/latest/discovery.html?#placeholder-values
+
+-   UI_LLCC (optional, forget it then)
+-   DC_LLCC (optional)
+-   DISABLE_CHAT (optional, forget it)
+-   HOST_SESSION_ID (optional)
+-   SESSION_CONTEXT (optional)
+-   WOPI_SOURCE
+-   PERFSTATS (optional)
+-   BUSINESS_USER = Can be set to 1, cool!
+-   ACTIVITY_NAVIGATION_ID (optional)
+
+Ok, we need to supply only - WOPI_SOURCE and our url becomes:
+
+`https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?<wopisrc=WOPI_SOURCE&>`, If we clean it up:
+
+`https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=$wopiSrc`
+
+Documentation is here: https://wopi.readthedocs.io/projects/wopirest/en/latest/concepts.html#term-wopisrc
+
+It gives an example for this: `https://wopi.contoso.com/wopi/files/abcdef0123456789`
+
+Ok, it is the endpoint at which we host the file, and "abcdef0123456789" is the file-id! Now, we getting into the meat of the problem.
+
+We need to add some endpoints to our app now! Without going into too much concept, the following are the apis which are must needed:
+
+From here (https://wopi.readthedocs.io/en/latest/wopi_requirements.html#requirements), for "View" we need to implement two endpoints:
+
+CheckFileInfo (https://wopi.readthedocs.io/projects/wopirest/en/latest/files/CheckFileInfo.html#checkfileinfo)
+
+-   `GET /wopi/files/(file_id)`
+
+And we should return a json response with following keys:
+
+```
+{
+    "BaseFileName" : "",
+    "OwnerId" : "",
+    "Size" : "",
+    "UserId" : "",
+    "Version" : "",
+}
+```
+
+Looks like we hardcode pretty much everything, except BaseFileName and Size
+
+GetFile (https://wopi.readthedocs.io/projects/wopirest/en/latest/files/GetFile.html#getfile)
+
+-   `GET /wopi/files/(file_id)/contents`
