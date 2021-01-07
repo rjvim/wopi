@@ -38,7 +38,7 @@ class WOPIController extends Controller
         header("Content-Type: application/octet-stream");
         // $contents = file_get_contents($filePath);
 
-        $handle = fopen($filePath, "rb");
+        $handle = fopen($filePath, "r");
         $contents = fread($handle, filesize($filePath));
 
         return response($contents, 200)
