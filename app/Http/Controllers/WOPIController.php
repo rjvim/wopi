@@ -29,7 +29,11 @@ class WOPIController extends Controller
     {
         $filePath = public_path('sample.docx');
         header("Content-Type: application/octet-stream");
-        $contents = file_get_contents($filePath);
+        // $contents = file_get_contents($filePath);
+
+        $handle = fopen($filePath, "rb");
+        $contents = fread($handle, filesize($filePath));
+
         // echo $contents;
         return $contents;
     }
