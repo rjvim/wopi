@@ -28,7 +28,7 @@ class WOPIController extends Controller
             "OwnerId" => 1,
             "UserId" => 1,
             "Version" => rand(),
-            // "FileUrl" => url("sample.docx")
+            "FileUrl" => url("sample.docx")
         ];
     }
 
