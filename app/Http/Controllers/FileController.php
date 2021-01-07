@@ -10,9 +10,9 @@ class FileController extends Controller
     {
         $favIconUrl = "https://c5-word-view-15.cdn.office.net/wv/resources/1033/FavIcon_Word.ico";
 
-        $wopiSrc = url('/wopi/files/123abcd');
+        $wopiSrc = urlencode(url('/wopi/files/123abcd'));
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=".$wopiSrc;
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc;
         $accessTokenValue = "abcdabcdabcd";
         $accessTokenTtl = 0;
 
