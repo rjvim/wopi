@@ -28,10 +28,8 @@ class WOPIController extends Controller
     function getFile($fileId)
     {
         $filePath = public_path('test.doc');
-
-        $handle = fopen($filePath, "r");
-        $contents = fread($handle, filesize($filePath));
-        header("Content-type: application/octet-stream");
+        header("Content-Type: application/octet-stream");
+        $contents = file_get_contents($filePath);
         return $contents;
     }
 }
