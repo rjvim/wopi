@@ -30,6 +30,7 @@ class WOPIController extends Controller
         $filePath = public_path('sample.docx');
         header("Content-Type: application/octet-stream");
         $contents = file_get_contents($filePath);
-        echo $contents;
+        // echo $contents;
+        return $contents;
     }
 }
