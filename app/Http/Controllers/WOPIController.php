@@ -42,7 +42,9 @@ class WOPIController extends Controller
         $contents = fread($handle, filesize($filePath));
 
         return response()
-            ->download($filePath);
+            ->download($filePath, "sample.docx",[
+                'Content-Type' => 'application/octet-stream'
+            ]);
 
         // echo $contents;
         return $contents;
