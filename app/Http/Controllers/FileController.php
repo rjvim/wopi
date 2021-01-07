@@ -14,7 +14,7 @@ class FileController extends Controller
 
         $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=".$wopiSrc;
         $accessTokenValue = "abcdabcdabcd";
-        $accessTokenTtl = "";
+        $accessTokenTtl = 0;
 
         return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
     }

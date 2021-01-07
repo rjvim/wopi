@@ -9,25 +9,25 @@ class WOPIController extends Controller
 {
     function checkFileInfo($fileId)
     {
-        $filePath = public_path('test.doc');
+        $filePath = public_path('sample.docx');
 
         $handle = fopen($filePath, "r");
         $size = filesize($filePath);
         $contents = fread($handle, $size);
 
         return [
-            "BaseFileName" => "test.doc",
+            "BaseFileName" => "sample.docx",
             "Size" => $size,
             "OwnerId" => 1,
             "UserId" => 1,
             "Version" => rand(),
-            "FileUrl" => url("test.doc")
+            "FileUrl" => url("sample.docx")
         ];
     }
 
     function getFile($fileId)
     {
-        $filePath = public_path('test.doc');
+        $filePath = public_path('sample.docx');
         header("Content-Type: application/octet-stream");
         $contents = file_get_contents($filePath);
         echo $contents;
