@@ -13,7 +13,7 @@ class FileController extends Controller
         $wopiSrc = urlencode(url('/wopi/files/123abcd'));
 
         $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc;
-        $accessTokenValue = "abcdabcdabcd";
+        $accessTokenValue = "abcdabcdabcdefefef";
         $accessTokenTtl = 0;
 
         return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
