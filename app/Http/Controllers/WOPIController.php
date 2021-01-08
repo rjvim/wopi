@@ -34,7 +34,11 @@ class WOPIController extends Controller
 
     function getFile($fileId)
     {
+        header('Content-Type: application/octet-stream');
+        
         $filePath = public_path('sample.docx');
+
+        return file_get_contents($filePath);
 
         $file = public_path('sample.docx');
 
