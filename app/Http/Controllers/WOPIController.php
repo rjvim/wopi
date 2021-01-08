@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
 class WOPIController extends Controller
@@ -34,32 +35,8 @@ class WOPIController extends Controller
 
     function getFile($fileId)
     {
-        header('Content-Type: application/octet-stream');
-
-        $filePath = public_path('sample.docx');
-
-        echo file_get_contents($filePath);
-
-        return;
-
         $file = public_path('sample.docx');
 
-        if (file_exists($file)) {
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($file).'"');
-            header('Content-Transfer-Encoding: binary');
-
-            header("Pragma: public");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: public", false);
-            header("Content-Description: File Transfer");
-            header("Accept-Ranges: bytes");
-
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-            exit;
-        }
-
+        return new BinaryFileResponse($file);
     }
 }
