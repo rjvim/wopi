@@ -12,7 +12,7 @@ class FileController extends Controller
 
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8&dchat=1&hid=dr&sc=anystring&IsLicensedUser=1&testcategory=All';
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8';
         $accessTokenValue = "586E4553-33FF-4403-82E1-584F157BF1E8";
         $accessTokenTtl = 0;
 
@@ -25,7 +25,7 @@ class FileController extends Controller
 
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
 
-        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8&dchat=1&hid=dr&sc=anystring&IsLicensedUser=1&testcategory=All';
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8';
         $accessTokenValue = "586E4553-33FF-4403-82E1-584F157BF1E8";
         $accessTokenTtl = 0;
 
