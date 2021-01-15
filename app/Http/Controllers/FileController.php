@@ -14,7 +14,7 @@ class FileController extends Controller
 
         $accessTokenValue = rand();
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc.'&access_token='.$accessTokenValue;
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc;
 
         $accessTokenTtl = 0;
 
@@ -28,7 +28,7 @@ class FileController extends Controller
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
         $accessTokenValue = rand();
 
-        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc.'&access_token='.$accessTokenValue;;
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc;
         $accessTokenTtl = 0;
 
         return view('test',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
