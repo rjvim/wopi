@@ -21,7 +21,7 @@ class FileController extends Controller
 
     function test()
     {
-        $favIconUrl = "https://FFC-onenote.officeapps.live.com";
+        $favIconUrl = "https://c5-word-view-15.cdn.office.net/wv/resources/1033/FavIcon_Word.ico";
 
         $wopiSrc = urlencode(url('/wopi/files/123abcd'));
 
