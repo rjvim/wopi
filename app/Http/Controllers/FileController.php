@@ -19,4 +19,17 @@ class FileController extends Controller
         return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
     }
 
+    function test()
+    {
+        $favIconUrl = "https://FFC-onenote.officeapps.live.com";
+
+        $wopiSrc = urlencode(url('/wopi/files/123abcd'));
+
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?wopisrc=".$wopiSrc;
+        $accessTokenValue = "abcdabcdabcdefefef";
+        $accessTokenTtl = 0;
+
+        return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
+    }
+
 }

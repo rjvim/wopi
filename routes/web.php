@@ -5,6 +5,7 @@ use App\Http\Controllers\WOPIController;
 use App\Http\Controllers\FileController;
 
 Route::get('/wopi/host', [FileController::class,'host']);
+Route::get('/wopi/test', [FileController::class,'test']);
 
 Route::get('/wopi/files/{fileId}', [WOPIController::class,'checkFileInfo']);
 Route::post('/wopi/files/{fileId}', [WOPIController::class,'lock']);
