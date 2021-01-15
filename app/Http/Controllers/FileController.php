@@ -10,7 +10,7 @@ class FileController extends Controller
     {
         $favIconUrl = "https://c5-word-view-15.cdn.office.net/wv/resources/1033/FavIcon_Word.ico";
 
-        $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
+        $wopiSrc = urlencode(url('/wopi/files/'.rand()));
 
         $accessTokenValue = rand();
 
