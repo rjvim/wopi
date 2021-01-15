@@ -10,11 +10,11 @@ class FileController extends Controller
     {
         $favIconUrl = "https://c5-word-view-15.cdn.office.net/wv/resources/1033/FavIcon_Word.ico";
 
-        $wopiSrc = urlencode(url('/wopi/files/'.rand()));
+        $wopiSrc = url('/wopi/files/'.rand());
 
         $accessTokenValue = rand();
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc;
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=".$wopiSrc;
 
         $accessTokenTtl = 0;
 
@@ -28,7 +28,7 @@ class FileController extends Controller
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
         $accessTokenValue = rand();
 
-        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc;
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?wopisrc=".$wopiSrc;
         $accessTokenTtl = 0;
 
         return view('test',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
