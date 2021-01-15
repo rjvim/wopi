@@ -26,7 +26,7 @@ class WOPIController extends Controller
             'BaseFileName' => $fileName,
             'OwnerId' => 'admin',
             'ReadOnly' => true,
-            'Size' => $filePath,
+            'Size' => filesize($filePath),
             'Version' => rand()
         );
 
