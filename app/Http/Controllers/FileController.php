@@ -12,8 +12,10 @@ class FileController extends Controller
 
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8';
-        $accessTokenValue = "586E4553-33FF-4403-82E1-584F157BF1E8";
+        $accessTokenValue = rand();
+
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?WOPISrc=".$wopiSrc.'&access_token='.$accessTokenValue;
+
         $accessTokenTtl = 0;
 
         return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
@@ -24,9 +26,9 @@ class FileController extends Controller
         $favIconUrl = "https://c5-word-view-15.cdn.office.net/wv/resources/1033/FavIcon_Word.ico";
 
         $wopiSrc = urlencode(url('/wopi/files/sample.docx'));
+        $accessTokenValue = rand();
 
-        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc.'&access_token=586E4553-33FF-4403-82E1-584F157BF1E8';
-        $accessTokenValue = "586E4553-33FF-4403-82E1-584F157BF1E8";
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?WOPISrc=".$wopiSrc.'&access_token='.$accessTokenValue;;
         $accessTokenTtl = 0;
 
         return view('test',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
