@@ -29,7 +29,7 @@ class FileController extends Controller
         $accessTokenValue = "abcdabcdabcdefefef";
         $accessTokenTtl = 0;
 
-        return view('host',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
+        return view('test',compact('favIconUrl','officeActionUrl','accessTokenValue','accessTokenTtl'));
     }
 
 }
