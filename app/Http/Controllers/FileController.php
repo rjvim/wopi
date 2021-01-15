@@ -12,7 +12,7 @@ class FileController extends Controller
 
         $wopiSrc = urlencode(url('/wopi/files/123abcd'));
 
-        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=".$wopiSrc;
+        $officeActionUrl = "https://FFC-word-view.officeapps.live.com/wv/wordviewerframe.aspx?wopisrc=".$wopiSrc.'&ui=nb-NO&rs=nb-NO&dchat=1&hid=dr&sc=anystring&IsLicensedUser=1&testcategory=All';
         $accessTokenValue = "abcdabcdabcdefefef";
         $accessTokenTtl = 0;
 
@@ -25,7 +25,7 @@ class FileController extends Controller
 
         $wopiSrc = urlencode(url('/wopi/files/123abcd'));
 
-        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?wopisrc=".$wopiSrc;
+        $officeActionUrl = "https://FFC-onenote.officeapps.live.com/hosting/WopiTestFrame.aspx?wopisrc=".$wopiSrc.'&ui=nb-NO&rs=nb-NO&dchat=1&hid=dr&sc=anystring&IsLicensedUser=1&testcategory=All';
         $accessTokenValue = "abcdabcdabcdefefef";
         $accessTokenTtl = 0;
 
